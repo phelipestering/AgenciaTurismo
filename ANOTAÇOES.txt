@@ -5,7 +5,17 @@ Fazer imagem docker  / nginx para rodar os sites.
 
 foram upados nos mesmos containers, os 1 container para as duas aplicacoes.
 
-INICIANDO O PROJETO
+CONFIGURACOES INICIAIS
+
+1- DEFININDO O Timezone
+
+
+config/app.php
+
+
+
+
+
 
 
 
