@@ -1,3 +1,99 @@
+LOG DE ERROS:
+
+*************************************************************************************************************************************************************************************************************
+ Illuminate\Database\QueryException
+
+  SQLSTATE[HY000] [2002] Connection refused (SQL: select * from information_schema.tables where table_schema = agenciaturismo and table_name = migrations and table_type = 'BASE TABLE')
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:703
+    699▕         // If an exception occurs when attempting to run a query, we'll format the error
+    700▕         // message to include the bindings with SQL, which will make this exception a
+    701▕         // lot more helpful to the developer instead of just the database's errors.
+    702▕         catch (Exception $e) {
+  ➜ 703▕             throw new QueryException(
+    704▕                 $query, $this->prepareBindings($bindings), $e
+    705▕             );
+    706▕         }
+    707▕     }
+
+      +36 vendor frames
+  37  artisan:37
+      Illuminate\Foundation\Console\Kernel::handle()
+*************************************************************************************************************************************************************************************************************
+motivo: a porta do .env deve ser a mesma do container no caso  3306, estava com a porta localhost 3308.
+
+Solução: incluir a porta do container 3306
+
+ mysql:
+        image: 'mysql/mysql-server:8.0'
+        ports:
+            - '${FORWARD_DB_PORT:-3308}:3306'
+*************************************************************************************************************************************************************************************************************
+
+BadMethodCallException
+
+  Method Illuminate\Database\Schema\Blueprint::strings does not exist. -> aqui esta o erro, a palavra strings nao existe, o correto é string !!!
+
+  at vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:113
+    109▕      */
+    110▕     public function __call($method, $parameters)
+    111▕     {
+    112▕         if (! static::hasMacro($method)) {
+  ➜ 113▕             throw new BadMethodCallException(sprintf(
+    114▕                 'Method %s::%s does not exist.', static::class, $method
+    115▕             ));
+    116▕         }
+    117▕
+
+  • Bad Method Call: Did you mean Illuminate\Database\Schema\Blueprint::string() ?
+
+  1   database/migrations/2022_01_02_003947_create_brands_table.php:18
+      Illuminate\Database\Schema\Blueprint::__call()
+
+      +4 vendor frames
+  6   database/migrations/2022_01_02_003947_create_brands_table.php:20
+      Illuminate\Support\Facades\Facade::__callStatic()
+
+*************************************************************************************************************************************************************************************************************
+MOTIVO: O TIPO ESTAVA ESCRITO COM O NOME ERRADO "STRINGS" O CORRETO É STRING
+
+Solução: ALTERAR O NOME, POR UM NOME CORRETO
+*************************************************************************************************************************************************************************************************************
+ Illuminate\Database\QueryException
+
+  SQLSTATE[HY000]: General error: 3780 Referencing column 'brand_id' and referenced column 'id' in foreign key constraint 'planes_brand_id_foreign' are incompatible. (SQL: alter table `planes` add constraint `planes_brand_id_foreign` foreign key (`brand_id`) references `brands` (`id`) on delete cascade)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:703
+    699▕         // If an exception occurs when attempting to run a query, we'll format the error
+    700▕         // message to include the bindings with SQL, which will make this exception a
+    701▕         // lot more helpful to the developer instead of just the database's errors.
+    702▕         catch (Exception $e) {
+  ➜ 703▕             throw new QueryException(
+    704▕                 $query, $this->prepareBindings($bindings), $e
+    705▕             );
+    706▕         }
+    707▕     }
+
+      +9 vendor frames
+  10  database/migrations/2022_01_02_010605_create_planes_table.php:23
+      Illuminate\Support\Facades\Facade::__callStatic()
+
+      +21 vendor frames
+  32  artisan:37
+      Illuminate\Foundation\Console\Kernel::handle()
+
+*************************************************************************************************************************************************************************************************************
+MOTIVO: o campo nao estava com os mesmos atributos, increments, somente com ID.
+
+Solução: renomear os campos com o increments nas duas tabelas para que tenham os mesmos atributos e entao apaga as tabelas e executa a migration de novo.
+
+php artisan migrate:fresh
+
+php artisan migrate:fresh --seed
+
+*************************************************************************************************************************************************************************************************************
+
+
 
 LAYOUTS DO CURSO - baixando os LAYOUTS
 
@@ -10,10 +106,55 @@ CONFIGURACOES INICIAIS
 1- DEFININDO O Timezone
 
 
+alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
+
+
 config/app.php
 
+2- CONFIGURANDO O VIRTUAL HOST APLICACAO LARAVEL
+
+ALTERADO EM APP_URL=http://agenciaTurismo.test no .ENV em sequencia adicionado o endereco no host do sistema
+
+127.0.0.1 	agenciaturismo.dev
+
+acessando pela novegador por esse endereco
 
 
+EXECUTANDO AS MIGRATIONS DENTRO DO Container
+
+relacionamentos nas migrations:
+
+ public function up()
+    {
+        Schema::create('planes', function (Blueprint $table) {
+            $table->id();
+            $table->integer('brand_id')->unsigned(); definindo a chave estrangeira
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
+
+            informando que a chave estrangeira brand_id, referencia a coluna id, da tabela brands, e que quando a chave estrangeira
+            deletar, todos o registros serao deletados, evitando registros orfaos.
+
+
+            $table->integer('qty_passengers');
+            $table->enum('class',['economic','luxury']);
+
+            definindo que a class possui 02 atributos, voce pode aplicar para inspetores e suas disciplinas
+            $table->timestamps();
+        });
+    }
+
+
+mais comandos de migration...
+
+Command "migrate:" is ambiguous.
+
+  Did you mean one of these?
+      migrate:fresh    Drop all tables and re-run all migrations
+      migrate:install  Create the migration repository
+      migrate:refresh  Reset and re-run all migrations
+      migrate:reset    Rollback all database migrations
+      migrate:rollback Rollback the last database migration
+      migrate:status   Show the status of each migration.
 
 
 
