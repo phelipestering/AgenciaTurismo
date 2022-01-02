@@ -93,6 +93,79 @@ php artisan migrate:fresh --seed
 
 *************************************************************************************************************************************************************************************************************
 
+ Illuminate\Database\QueryException
+
+  SQLSTATE[42S21]: Column already exists: 1060 Duplicate column name 'name' (SQL: create table `airports` (`id` int unsigned not null auto_increment primary key, `city_id` int unsigned not null, `name` varchar(100) not null, `latitude` varchar(15) null, `longitude` varchar(15) null, `address` varchar(100) null, `number` varchar(100) null, `name` varchar(100) null, `zip_code` varchar(11) null, `complement` varchar(190) null, `created_at` timestamp null, `updated_at` timestamp null) default character set utf8mb4 collate 'utf8mb4_unicode_ci')
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:703
+    699▕         // If an exception occurs when attempting to run a query, we'll format the error
+    700▕         // message to include the bindings with SQL, which will make this exception a
+    701▕         // lot more helpful to the developer instead of just the database's errors.
+    702▕         catch (Exception $e) {
+  ➜ 703▕             throw new QueryException(
+    704▕                 $query, $this->prepareBindings($bindings), $e
+    705▕             );
+    706▕         }
+    707▕     }
+
+      +9 vendor frames
+  10  database/migrations/2022_01_02_192842_create_airports_table.php:32
+      Illuminate\Support\Facades\Facade::__callStatic()
+
+      +21 vendor frames
+  32  artisan:37
+      Illuminate\Foundation\Console\Kernel::handle()
+
+*************************************************************************************************************************************************************************************************************
+MOTIVO: o campo name ja existia, entao ele nao criou.
+
+Solução: excluir a linha duplicada e dar um roll back na migration
+
+php artisan migrate:rollback
+
+*************************************************************************************************************************************************************************************************************
+ Illuminate\Database\QueryException
+
+  SQLSTATE[HY000]: General error: 1824 Failed to open the referenced table 'flight' (SQL: alter table `reserves` add constraint `reserves_flight_id_foreign` foreign key (`flight_id`) references `flight` (`id`) on delete cascade)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:703
+    699▕         // If an exception occurs when attempting to run a query, we'll format the error
+    700▕         // message to include the bindings with SQL, which will make this exception a
+    701▕         // lot more helpful to the developer instead of just the database's errors.
+    702▕         catch (Exception $e) {
+  ➜ 703▕             throw new QueryException(
+    704▕                 $query, $this->prepareBindings($bindings), $e
+    705▕             );
+    706▕         }
+    707▕     }
+
+      +9 vendor frames
+  10  database/migrations/2022_01_02_200358_create_reserves_table.php:42
+      Illuminate\Support\Facades\Facade::__callStatic()
+
+      +21 vendor frames
+  32  artisan:37
+      Illuminate\Foundation\Console\Kernel::handle()
+sail@0646a4e1a71f:/var/www/html$
+
+*************************************************************************************************************************************************************************************************************
+MOTIVO: nome incorreto da tabela de referencia, o nome nao é flight é flights, necessario verificar o nome dentro da tabela da migrations.
+
+dica: o nome das tabelas são geralmente no plural
+
+Solução: corrigir o nome da tabela referenciada para flights
+
+php artisan migrate:rollback
+
+
+php artisan migrate:fresh --seed
+
+
+*************************************************************************************************************************************************************************************************************
+
+
+
+
 
 
 LAYOUTS DO CURSO - baixando os LAYOUTS
@@ -155,6 +228,81 @@ Command "migrate:" is ambiguous.
       migrate:reset    Rollback all database migrations
       migrate:rollback Rollback the last database migration
       migrate:status   Show the status of each migration.
+
+Observando a caracteristica, cria-se a model no SINGULAR COM A LETRA MAIUSCULA e entao o proprio laravel cria a migration no PLURAL !!!!
+
+sail@0646a4e1a71f:/var/www/html$ php artisan make:model State -m
+Model created successfully.
+Created Migration: 2022_01_02_192731_create_states_table
+sail@0646a4e1a71f:/var/www/html$ php artisan make:model City -m
+Model created successfully.
+Created Migration: 2022_01_02_192808_create_cities_table
+sail@0646a4e1a71f:/var/www/html$ php artisan make:model Airport -m
+Model created successfully.
+Created Migration: 2022_01_02_192842_create_airports_table
+
+analisando a migration de Cidade...
+
+Schema::create('cities', function (Blueprint $table) {
+            $table->increments('id'); -> criando o id da cidade
+            $table->integer('state_id')->unsigned(); -> crio a coluna state_id com usigned para ser usada como chave estrangeira, a coluna de chave estrangeira
+            deve ser categorizada como unsigned
+            $table->foreign('state_id') -> gero uma chave chave estrangeira
+                                ->references('id') -> referenciando o id
+                                ->('states') -> da tabela states
+                                ->onDelete('cascade'); -> e na delecao deleta tudo evitando registros orfaos
+            $table->string('name',100);
+            $table->string('zip_code',11)->nullable(); -> coluna zip code, com 11 caracteres com preenchimento nao obrigatorio (nullable)
+            $table->timestamps();
+        });
+
+para saber mais sobre o unsigned...
+
+O unsigned significa sem sinal. Cada tipo de campo nos banco de dados tem um tipo de valor e um limite de armazenamento.
+
+Para números inteiros com sinal tem-se um limite que vai de um certo número negativo até um certo número positivo, já sem sinal, a faixa começa de 0 e vai até um número maior do que a faixa com sinal, pois começa de 0.
+
+E quando declaramos uma chave estrangeira, seja ela qual for, deve ser do mesmo tipo da chave primária, senão acontecerá um erro.
+
+No caso do Laravel, quando declaramos na migração increments, se for MySQL, será criado uma chave primária inteira sem sinal, por isso as chaves estrangeiras devem ser unsigned.
+
+Metodo de organização, foram criados as colunas e depois as chaves estrangeiras
+
+Schema::create('flights', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('plane_id')->unsigned();
+            $table->integer('airport_origin_id')->unsigned();
+            $table->integer('airport_destination_id')->unsigned();
+            $table->date('date');
+            $table->time('time_duration');
+            $table->time('hour_output');
+            $table->time('arrival_time');
+            $table->double('old_price', 10, 2);
+            $table->double('price', 10, 2);
+            $table->integer('total_plots');
+            $table->boolean('is_promotion')->default(false);
+            $table->string('image', 200)->nullable();
+            $table->integer('qty_stops')->default(0);
+            $table->text('description')->nullable();
+
+            $table->foreign('plane_id')
+                    ->references('id')
+                    ->on('planes')
+                    ->onDelete('cascade');
+
+            $table->foreign('airport_origin_id')
+                    ->references('id')
+                    ->on('airports')
+                    ->onDelete('cascade');
+
+            $table->foreign('airport_destination_id')
+                    ->references('id')
+                    ->on('airports')
+                    ->onDelete('cascade');
+
+
+            $table->timestamps();
+        });
 
 
 
