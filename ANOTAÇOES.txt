@@ -1,0 +1,12 @@
+
+LAYOUTS DO CURSO - baixando os LAYOUTS
+
+Fazer imagem docker  / nginx para rodar os sites.
+
+foram upados nos mesmos containers, os 1 container para as duas aplicacoes.
+
+INICIANDO O PROJETO
+
+
+
+

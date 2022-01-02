@@ -26,6 +26,27 @@ services:
             - redis
             - meilisearch
             - selenium
+
+    agencia_turismo:
+        image: nginx:alpine
+        restart: always
+        ports:
+        - 81:81
+        - 82:82
+        volumes:
+        - ./docker/nginx/:/etc/nginx/conf.d/
+        - ./:/var/www
+        networks:
+        - sail
+
+    php:
+        image: php:7.4-fpm
+        volumes:
+        - ./:/var/www
+        networks:
+            - sail
+
+
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
