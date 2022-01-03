@@ -366,7 +366,9 @@ criando uma pasta public/assets/panel
 
 ROTAS LARAVEL
 
+vamos usar o modelo abaixo:
 
+Route::get('/panel', [PanelController::class, 'index'])->name('panel.index');
 
 
 

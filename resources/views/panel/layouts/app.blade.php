@@ -23,7 +23,7 @@
 <section class="menu">
 
 	<div class="logo">
-		<img src="{{url('assets/panel/img/icone-especializati.png')}}" alt="EspecializaTi" class="logo-painel">
+		<img src="{{url('assets/panel/imgs/icone-especializati.png')}}" alt="EspecializaTi" class="logo-painel">
 	</div>
 
 	<div class="list-menu">
