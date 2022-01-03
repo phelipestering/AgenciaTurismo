@@ -304,6 +304,44 @@ Schema::create('flights', function (Blueprint $table) {
             $table->timestamps();
         });
 
+IMPORTANDO ESTADOS E CIDADES
+
+1- va até o mysql  workbench
+
+2 - selecione o banco de dados
+
+3- abra uma nova query e arraste o arquivo
+
+4- selecione tudo com CTRL + A e execute
+
+5- verifique se foi criado uma tabela com o nome do arquivo que foi anexado.
+
+
+nesse exemplo, perceba que foram criadas as tabelas states e cities.
+
+outro metodo...
+
+1- va ate a aba admnistration
+
+2- selecione Data Import/ restore
+
+3- selecione Import from Self-Contained Files
+
+4- selecione o banco de dados em Default Target schema
+
+5- clique em start important
+
+6- verique os dados importados
+
+
+
+
+
+
+
+
+
+
 
 
 
