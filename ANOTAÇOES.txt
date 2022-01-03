@@ -333,6 +333,41 @@ outro metodo...
 
 6- verique os dados importados
 
+INTEGRANDO LAYOUT DASHBOARD AO LARAVEL
+
+construindo o painel
+
+1- criados as pastas dentro de resources/views/panels/layouts
+
+2- copiado o conteudo do arquivo painel.php da pasta de layout-dashboard-free
+
+LAYOUT painel
+
+1- Titulo dinamico
+
+<title>{{$title or 'Panel EspecializaTi'}}</title>
+
+caso houver uma variavel title ele imprime, se nao houver imprime a o textContent
+
+2- Conteudo dinamico da pagina
+
+usando o @yield
+
+@yield('content')
+
+o yield vai adicionar o conteudo dinamicamente
+
+3- inserindo os arquivo CSS, js e etc - arquivos de view em geral
+
+criando uma pasta public/assets/panel
+
+
+4- direcionando os arquivos da pagina.
+
+ROTAS LARAVEL
+
+
+
 
 
 
