@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\PanelController;
-use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,12 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/panel', [PanelController::class, 'index'])->name('panel.index');
+Route::get('/', function () {
+    return view('welcome');
+});
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-
-// site routes
-
-Route::get('/', [SiteController::class, 'index'])->name('site.index');
-
-Route::get('/promocoes', [SiteController::class, 'promotion'])->name('site.promotion');
+require __DIR__.'/auth.php';
