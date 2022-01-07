@@ -163,9 +163,89 @@ php artisan migrate:fresh --seed
 
 *************************************************************************************************************************************************************************************************************
 
+phelipesteringlima@Phelipes-MacBook-Air agenciaTurismo % php artisan migrate
+
+   Illuminate\Database\QueryException
+
+  SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known (SQL: select * from information_schema.tables where table_schema = agenciaturismo and table_name = migrations and table_type = 'BASE TABLE')
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:703
+    699▕         // If an exception occurs when attempting to run a query, we'll format the error
+    700▕         // message to include the bindings with SQL, which will make this exception a
+    701▕         // lot more helpful to the developer instead of just the database's errors.
+    702▕         catch (Exception $e) {
+  ➜ 703▕             throw new QueryException(
+    704▕                 $query, $this->prepareBindings($bindings), $e
+    705▕             );
+    706▕         }
+    707▕     }
+
+      +33 vendor frames
+  34  artisan:37
+      Illuminate\Foundation\Console\Kernel::handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+
+*************************************************************************************************************************************************************************************************************
+MOTIVO: comando executado FORA DO CONTAINER e por isso ele nao achou o caminho para inserir o registro no banco de dados
+
+Solução: entrar no container e depois executar a migrate
+
+sail shell
 
 
+php artisan migrate
 
+
+*************************************************************************************************************************************************************************************************************
+
+Illuminate\Database\QueryException
+SQLSTATE[HY000]: General error: 1364 Field 'image' doesn't have a default value (SQL: insert into `users` (
+    `name`, `email`, `password`, `updated_at`, `created_at`) values (PHELIPE STERING, phelipe.stering@hotmail.com,
+    $2y$10$wPbyksYI2o9kJluAYtYBDOsQGdBSPqaWVsHoN5yFSWVuiw0L.FwFW, 2022-01-06 17:41:16, 2022-01-06 17:41:16))
+
+http://agenciaturismo.test/register
+
+*************************************************************************************************************************************************************************************************************
+MOTIVO: a coluna image nao tem um valor default, necessario incluir o atributo nullable
+
+
+Solução: incluir o atributo nullable para ter nao ser necessario upload de imagem
+
+instalar o doctrine ball
+
+sintaxe do codigo
+
+php artisan make:migration alter_table_<nomeTabela>_change_<nomeCOLUNA> --table=<nomeTabela>
+
+php artisan make:migration alter_table_users_change_image --table=users
+
+public function up()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            //
+
+            $table->string('image',200)->nullable()->change();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->dropColumn('image');
+
+        });
+    }
+
+revertendo...
+
+$table->string('image',200)->nullable(false)->change();
+
+*************************************************************************************************************************************************************************************************************
 
 
 LAYOUTS DO CURSO - baixando os LAYOUTS
@@ -370,9 +450,30 @@ vamos usar o modelo abaixo:
 
 Route::get('/panel', [PanelController::class, 'index'])->name('panel.index');
 
+CONFIGURANDO O EMAIL
+
+1- ENTRAR NO MAILTRAP.IO
+
+2- CONFIGURANDO O ENVIO EM CONFIG LARAVEL
+
+.ENV
+
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=af4d0885cf885b
+MAIL_PASSWORD=27bf395b33c060
+MAIL_ENCRYPTION=tls
 
 
+config/mail.php
 
+configuracao dos remetentes padrao
+
+'from' => [
+        'address' => env('MAIL_FROM_ADDRESS', 'testelaravel@intertek.com'),
+        'name' => env('MAIL_FROM_NAME', 'coordenador'),
+    ],
 
 
 
