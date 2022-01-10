@@ -14,7 +14,9 @@ class BrandController extends Controller
      */
     public function index()
     {
-        return 'testando a rota';
+        $title = 'Marcas de Avioes';
+
+        return view('panel.brands.index', compact('title'));
     }
 
     /**
