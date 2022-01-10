@@ -34,3 +34,5 @@ class AlterTableUsersChangeImage extends Migration
         });
     }
 }
+
+

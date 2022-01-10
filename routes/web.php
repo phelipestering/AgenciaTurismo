@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Panel\BrandController;
 use App\Http\Controllers\Site\SiteController;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +16,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+// site routes
+
 Route::get('/', function () {
     return view('welcome');
 });
-
+// promocoes
 Route::get('/promotion', [SiteController::class, 'promotion'])->name('site.promotion');
+
+//agrupando as rotas do painel
+
+Route::group(['prefix' => 'panel', 'namespace' => 'panel'], function () {
+
+    Route::get('/brands', [BrandController::class, 'index'])->name('index.brands');
+
+    Route::get('/', [SiteController::class, 'panel'])->name('site.panel');
+
+});
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -14,4 +14,8 @@ class SiteController extends Controller
     public function promotion(){
         return view ('site.promotion.list');
     }
+
+    public function panel(){
+        return view ('panel.layouts.app');
+    }
 }

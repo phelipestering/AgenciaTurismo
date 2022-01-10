@@ -36,17 +36,17 @@
 			</li>
 
 			<li>
-				<a href="?pag=list">
-					<i class="fa fa-id-card" aria-hidden="true"></i>
+				<a href= "{{route('index.brands')}}">
+					<i class="fa fa-markdown"  aria-hidden="true"></i>
 					Listagem
 				</a>
 			</li>
 
 			<li>
-				<a href="?pag=forms">
-					<i class="fa fa-fort-awesome" aria-hidden="true"></i>
+				{{-- <a href="?pag=forms">
+					<i class="fas fa-landmark" aria-hidden="true"></i>
 					Forms
-				</a>
+				</a> --}}
 			</li>
 		</ul>
 	</div>
