@@ -29,7 +29,7 @@ Route::get('/promotion', [SiteController::class, 'promotion'])->name('site.promo
 
 Route::group(['prefix' => 'panel', 'namespace' => 'panel'], function () {
 
-    Route::get('/brands', [BrandController::class, 'index'])->name('index.brands');
+    Route::resource('/brands', '\App\Http\Controllers\Panel\BrandController');
 
     Route::get('/', [SiteController::class, 'panel'])->name('site.panel');
 

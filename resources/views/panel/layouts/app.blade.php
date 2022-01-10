@@ -36,7 +36,7 @@
 			</li>
 
 			<li>
-				<a href= "{{route('index.brands')}}">
+				<a href= "{{ route('brands.index')}}">
 					<i class="fa fa-markdown"  aria-hidden="true"></i>
 					Listagem
 				</a>

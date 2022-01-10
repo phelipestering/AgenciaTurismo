@@ -247,6 +247,30 @@ $table->string('image',200)->nullable(false)->change();
 
 *************************************************************************************************************************************************************************************************************
 
+Illuminate\Contracts\Container\BindingResolutionException
+
+Target class [panel\App\Http\Controllers\Panel\BrandController] does not exist.
+http://localhost/panel/brands
+
+
+*************************************************************************************************************************************************************************************************************
+
+MOTIVO: a rota resource estava declarada errada
+
+Solução: declarar a rota resource incluindo o name space
+
+Route::group(['prefix' => 'panel', 'namespace' => 'panel'], function () {
+
+    Route::resource('/brands', '\App\Http\Controllers\Panel\BrandController');
+
+
+
+*************************************************************************************************************************************************************************************************************
+
+
+
+
+
 
 LAYOUTS DO CURSO - baixando os LAYOUTS
 
