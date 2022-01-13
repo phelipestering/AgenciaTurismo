@@ -590,6 +590,54 @@ ROTAS - OBSERVACOES
 ROTAS AGRUPADAS
 
 
+CRIANDO A GESTAO DE MARCAS
+
+ARMAZENANDO O registro
+
+Metodo Store em BrandsController
+
+1- Formulario de enviar o registro
+
+<<form class="form form-search form-ds" action="{{ route('brands.store') }}" method="POST">
+
+            @csrf
+
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Marca" class="form-control"> -> o atributo name deve ser o mesmo nome da tabela
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-search">Cadastrar</button>
+            </div>
+        </form>
+
+
+Debugando a funcionalidade...
+
+public function store(Request $request)
+    {
+        //
+
+        dd($request->all()); | dando um request all para ele pegar todos os dados
+    }
+
+sempre INCLUA QUAIS CAMPOS DEVEM SER PREENCHIDOS NO MODEL PELO Protected $fillable
+
+class Brand extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ['name'];
+}
+
+
+2- Criando o metodo para armazenamento dos dados do Formulario
+
+
+
+
+
+
 
 
 

@@ -8,7 +8,7 @@
         <a href="" class="bred">Brands</a>
     </div>
 
-    <a href="#" class = "btn btn-success">
+    <a href="{{ route('brands.create') }}" class = "btn btn-success">
         <i class="fas fa-folder-plus" aria-hidden="true"></i> cadastrar
     </a>
 
