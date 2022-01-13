@@ -17,7 +17,9 @@ class BrandController extends Controller
     {
         $title = 'Marcas de Avioes';
 
-        return view('panel.brands.index', compact('title'));
+        $brands = $brand ->all(); // variavel brands recebendo todas as brands
+
+        return view('panel.brands.index', compact('title', 'brands'));
     }
 
     /**
@@ -38,17 +40,21 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Brand $brand)
     {
         //
 
         $dataform = $request->all();
 
-        Brand::create($dataform);
+        $insert = $brand->create($dataform);
 
-        return redirect()
-                ->route('brands.store')
-                ->with('message', 'Post criado com sucesso');
+
+        if($insert)
+
+        return redirect()->route('brands.index');
+
+        else
+            return redirect()->back('error', 'Falha ao Cadastrar');
 
     }
 
