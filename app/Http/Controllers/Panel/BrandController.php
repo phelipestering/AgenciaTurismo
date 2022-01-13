@@ -13,11 +13,21 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Brand $brand)
+
+    private $brands;
+
+    public function __construct(Brand $brand)
+    {
+        $this->brand = $brand;
+    }
+
+
+
+    public function index()
     {
         $title = 'Marcas de Avioes';
 
-        $brands = $brand ->all(); // variavel brands recebendo todas as brands
+        $brands = $this->brand ->all(); // variavel brands recebendo todas as brands
 
         return view('panel.brands.index', compact('title', 'brands'));
     }
@@ -40,22 +50,21 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Brand $brand)
+    public function store(Request $request)
     {
         //
 
-        $dataform = $request->all();
+    $dataform = $request->all();
 
-        $insert = $brand->create($dataform);
+    if($insert = $this->brand->create($dataform))
 
-
-        if($insert)
-
-        return redirect()->route('brands.index');
-
-        else
-            return redirect()->back('error', 'Falha ao Cadastrar');
-
+        return redirect()
+                        ->route('brands.index')
+                        ->with('sucess', 'cadastro realizado com sucesso');
+    else
+        return redirect()
+                        ->back()
+                        ->with('error', 'fallha ao cadastrar');
     }
 
     /**

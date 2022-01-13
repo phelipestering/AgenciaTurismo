@@ -22,6 +22,28 @@
             </form>
         </div>
 
+        {{--
+            EXIBINDO A JANELA DE MENSAGEM DE ERRO E SUCESSO
+
+            as mensagens estao contidas no brand controller metodo STORE
+
+                --}}
+        <div class = "messages">
+            @if (session('sucess'))
+                <div class = "alert alert-success">
+                    {{ session('sucess') }}
+                </div>
+            @endif
+        </div>
+
+        <div class = "messages">
+            @if (session('error'))
+                <div class = "alert alert-error">
+                    {{ session('error') }}
+                </div>
+            @endif
+        </div>
+
         <div class="class-btn-insert">
             <a href="{{ route('brands.create') }}" class="btn-insert">
                 <span class="glyphicon glyphicon-plus"></span>
