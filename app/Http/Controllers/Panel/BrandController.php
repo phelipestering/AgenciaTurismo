@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 
+use function GuzzleHttp\Promise\all;
+
 class BrandController extends Controller
 {
     /**
@@ -87,6 +89,18 @@ class BrandController extends Controller
     public function edit($id)
     {
         //
+        $brand = $this->brand->find($id);
+
+        if(!$brand) // se ele nao encontrar o id ele redirecionar para pagina anterior
+            return redirect()->back();
+
+            $title = "Editar Marca: {$brand->name}";
+
+            return view ('panel.brands.edit', compact('title', 'brand'));
+
+
+        dd($brand);
+
     }
 
     /**
@@ -98,7 +112,23 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $brand = $this->brand->find($id);
+
+        if(!$brand) // se ele nao encontrar o id ele redirecionar para pagina anterior
+            return redirect()->back();
+
+        $update = $brand->update($request->all());
+
+        if($update)
+
+        return redirect()
+                        ->route('brands.index')
+                        ->with('sucess', 'Atualizado com sucesso');
+        else
+        return redirect()
+                        ->back()
+                        ->with('error', 'fallha ao atualizar');
+
     }
 
     /**

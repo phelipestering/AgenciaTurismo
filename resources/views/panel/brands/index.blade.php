@@ -58,13 +58,17 @@
                 <th width="150">Ações</th>
             </tr>
 
+
+            {{-- LISTAGEM DE MARCAS --}}
+
+
             @forelse ($brands as $brand )
 
                 <tr>
                     <td>{{ $brand->name }}</td>
 
                     <td>
-                        <a href="" class="edit">Edit</a>
+                        <a href="{{ route('brands.edit', $brand->id) }}" class="edit">Edit</a>
                         <a href="" class="delete">Delete</a>
                     </td>
                 </tr>
