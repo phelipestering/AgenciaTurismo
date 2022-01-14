@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 
+//importando o form request
+
+use App\Http\Requests\BrandStoreUpdateFormRequest;
+
 use function GuzzleHttp\Promise\all;
 
 class BrandController extends Controller
@@ -52,7 +56,7 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BrandStoreUpdateFormRequest $request)
     {
         //
 
