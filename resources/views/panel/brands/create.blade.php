@@ -4,9 +4,9 @@
 @section('content')
 
     <div class="bred">
-        <a href="{{ route('dash.panel') }}" class="bred">Home  ></a>
-        <a href="{{ route('brands.index') }}" class="bred">Brands</a>
-        <a href="" class="bred">Cadastrar</a>
+        <a href="{{ route('dash.panel') }}" class="bred" > Home></a>
+        <a href="{{ route('brands.index') }}" class="bred" > Brands</a>
+        <a href="" class="bred" > Cadastrar</a>
     </div>
 
 

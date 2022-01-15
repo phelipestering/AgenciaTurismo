@@ -101,10 +101,12 @@ class BrandController extends Controller
             $title = "Editar Marca: {$brand->name}";
 
             return view ('panel.brands.create-edit', compact('title', 'brand'));
-            
+
+
         dd($brand);
 
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -130,6 +132,7 @@ class BrandController extends Controller
         return redirect()
                         ->back()
                         ->with('error', 'fallha ao atualizar');
+
     }
 
     /**

@@ -273,21 +273,21 @@ http://agenciaturismo.test/panel/brands
 
 *************************************************************************************************************************************************************************************************************
 
-MOTIVO: a rota resource estava declarada errada
+MOTIVO: erro na declaracao de 'rules' em brandstoreupdateformrequest
 
-Solução: declarar a rota resource incluindo o name space
+Solução: declarar corretamente
 
-Route::group(['prefix' => 'panel', 'namespace' => 'panel'], function () {
-
-    Route::resource('/brands', '\App\Http\Controllers\Panel\BrandController');
+$id = Request::segment(3);
 
 
+        return [
+            'name' => "required|min:3|max:100|unique:brands, name,{$id}, id", === OLD
+            'name' => "required|min:3|max:100|unique:brands,name,{$id},id" ====  NEW
+        ];
+    }
+}
 
 *************************************************************************************************************************************************************************************************************
-
-
-
-
 
 LAYOUTS DO CURSO - baixando os LAYOUTS
 
