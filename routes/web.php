@@ -29,10 +29,15 @@ Route::get('/promotion', [SiteController::class, 'promotion'])->name('site.promo
 
 Route::group(['prefix' => 'panel', 'namespace' => 'panel'], function () {
 
+
     Route::resource('/brands', '\App\Http\Controllers\Panel\BrandController');
+
 
     Route::get('/', [SiteController::class, 'panel'])->name('dash.panel');
 
+    // rota de busca
+
+    Route::post('/brands/search', [BrandController::class, 'search'])->name('brands.search');
 });
 
 
