@@ -22,18 +22,20 @@ class BrandController extends Controller
 
     private $brands;
 
+    // setando quantos items vou exibir por pagina
+
+    protected $totalpage = 4;
+
     public function __construct(Brand $brand)
     {
         $this->brand = $brand;
     }
 
-
-
     public function index()
     {
         $title = 'Marcas de Avioes';
 
-        $brands = $this->brand ->all(); // variavel brands recebendo todas as brands
+        $brands = $this->brand ->paginate($this->totalpage); // metodo paginate usando a variavel totalpage para exibicao dos itens por pagina
 
         return view('panel.brands.index', compact('title', 'brands'));
     }
@@ -101,7 +103,7 @@ class BrandController extends Controller
             $title = "Editar Marca: {$brand->name}";
 
             return view ('panel.brands.create-edit', compact('title', 'brand'));
-            
+
         dd($brand);
 
     }

@@ -6,12 +6,12 @@
         {{-- <title>{{$title ?? '' or 'Panel EspecializaTi'}}</title> --}}
 
 		<!-- Bootstrap -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
 
+    <!--CSS Person-->
 
-		<!--CSS Person-->
-		<link rel="stylesheet" href="{{url('assets/panel/css/especializati.css')}}">
+        <link rel="stylesheet" href="{{url('assets/panel/css/especializati.css')}}">
 		<link rel="stylesheet" href="{{url('assets/panel/css/especializati-reset.css')}}">
 
 		<!--Favicon-->
@@ -56,17 +56,20 @@
 	<div class="top-dashboard">
 
 		<div class="dropdown user-dash">
-		  <div class="dropdown-toggle" id="dropDownCuston" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		    <img src="{{url('assets/panel/imgs/user-carlos-ferreira.png')}}" alt="Carlos Ferreira" class="user-dashboard img-circle">
-		    <p class="user-name">Nome User</p>
-		    <span class="caret"></span>
-		  </div>
-		  <ul class="dropdown-menu dp-menu" aria-labelledby="dropDownCuston">
-		    <li><a href="#">Perfil</a></li>
-		    <li><a href="#">Logout</a></li>
-		  </ul>
-		</div>
-	</div><!--Top Dashboard-->
+            <div class="dropdown-toggle" id="dropDownCuston" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <img src="{{url('assets/panel/imgs/user-carlos-ferreira.png')}}" alt="Carlos Ferreira" class="user-dashboard img-circle">
+                <p class="user-name">Nome User</p>
+                <span class="caret"></span>
+
+            </div>
+            <div>
+                <ul class="dropdown-menu dp-menu" aria-labelledby="dropDownCuston">
+                    <li><a href="#">Perfil</a></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+		    </div>
+        </div>
+    </div><!--Top Dashboard-->
 
 	<div class="content-ds">
 
@@ -84,10 +87,7 @@
 
     {{-- Font awesome --}}
 
-
     <script src="https://kit.fontawesome.com/fee8180858.js" crossorigin="anonymous"></script>
 
-	<!-- jS Bootstrap -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
