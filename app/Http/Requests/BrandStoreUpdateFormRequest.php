@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use GuzzleHttp\Psr7\Request as Psr7Request;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Request as FacadesRequest;
+use Illuminate\Http\Request;
 
 class BrandStoreUpdateFormRequest extends FormRequest
 {
@@ -26,8 +29,11 @@ class BrandStoreUpdateFormRequest extends FormRequest
      */
     public function rules()
     {
+
+        $id = Request::segment(3);
+        
         return [
-            'name' => 'required|min:3|max:100|unique:brands',
+            'name' => "required|min:3|max:100|unique:brands, name,{$id}, id",
         ];
     }
 }
