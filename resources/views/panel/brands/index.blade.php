@@ -83,8 +83,17 @@
             @endforelse
         </table>
 
-        {{ $brands->links() }}
+        @if (isset($dataform))
+
+        {{ $brands->appends($dataform)->links()}}
+
+        @else
+
+        {{$brands->links()}}
+
+        @endif
+
 
     </div>
-
+    
 @endsection

@@ -37,7 +37,7 @@ Route::group(['prefix' => 'panel', 'namespace' => 'panel'], function () {
 
     // rota de busca
 
-    Route::post('/brands/search', [BrandController::class, 'search'])->name('brands.search');
+    Route::any('/brands/search', [BrandController::class, 'search'])->name('brands.search');
 });
 
 
