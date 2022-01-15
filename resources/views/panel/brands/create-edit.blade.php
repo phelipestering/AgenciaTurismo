@@ -9,7 +9,6 @@
         <a href="" class="bred">Cadastrar</a>
     </div>
 
-
     <div class="title-pg">
         <h1 class="title-pg">Cadastrar Avioes</h1>
     </div>
@@ -25,13 +24,16 @@
             </ul>
         </div>
     @endif
-
-        <form class="form form-search form-ds" action="{{ route('brands.store') }}" method="POST">
-
+        @if (isset($brand))
+            <form class="form form-search form-ds" action="{{ route('brands.update', $brand->id ) }}" method="POST">
+                {{ method_field('PUT')}}
+        @else
+            <form class="form form-search form-ds" action="{{ route('brands.store') }}" method="POST">
+        @endif
             @csrf
 
             <div class="form-group">
-                <input type="text" name="name" placeholder="Marca" class="form-control">
+                <input type="text" value= "{{ old('name') }}" name="name" placeholder="Marca" class="form-control">
             </div>
 
             <div class="form-group">

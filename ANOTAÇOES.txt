@@ -267,6 +267,23 @@ Route::group(['prefix' => 'panel', 'namespace' => 'panel'], function () {
 
 *************************************************************************************************************************************************************************************************************
 
+Illuminate\Database\QueryException
+SQLSTATE[42S22]: Column not found: 1054 Unknown column ' name' in 'where clause' (SQL: select count(*) as aggregate from `brands` where ` name` = stering and ` id` <> )
+http://agenciaturismo.test/panel/brands
+
+*************************************************************************************************************************************************************************************************************
+
+MOTIVO: a rota resource estava declarada errada
+
+Solução: declarar a rota resource incluindo o name space
+
+Route::group(['prefix' => 'panel', 'namespace' => 'panel'], function () {
+
+    Route::resource('/brands', '\App\Http\Controllers\Panel\BrandController');
+
+
+
+*************************************************************************************************************************************************************************************************************
 
 
 
@@ -631,7 +648,7 @@ class Brand extends Model
 }
 
 
-2- Criando o metodo para armazenamento dos dados do Formulario
+https://laravelcollective.com/docs/6.x/html#installation
 
 
 

@@ -31,9 +31,9 @@ class BrandStoreUpdateFormRequest extends FormRequest
     {
 
         $id = Request::segment(3);
-        
+
         return [
-            'name' => "required|min:3|max:100|unique:brands, name,{$id}, id",
+            'name' => "required|min:3|max:100|unique:brands,name,{$id},id"
         ];
     }
 }
