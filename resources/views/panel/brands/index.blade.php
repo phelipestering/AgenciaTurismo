@@ -33,19 +33,7 @@
 
                 --}}
         <div class = "messages">
-            @if (session('sucess'))
-                <div class = "alert alert-success">
-                    {{ session('sucess') }}
-                </div>
-            @endif
-        </div>
-
-        <div class = "messages">
-            @if (session('error'))
-                <div class = "alert alert-error">
-                    {{ session('error') }}
-                </div>
-            @endif
+           @include('panel.includes.alerts')
         </div>
 
         <div class="class-btn-insert">
