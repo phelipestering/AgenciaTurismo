@@ -21,6 +21,10 @@
             </li>
         </ul>
 
+        <div class = "messages">
+            @include('panel.includes.alerts')
+         </div>
+
             {!! Form::open(['route' => ['brands.destroy', $brand->id], 'class' => 'form form-search form-ds', 'method'=> 'DELETE']) !!}
 
             <div class= "form-group">

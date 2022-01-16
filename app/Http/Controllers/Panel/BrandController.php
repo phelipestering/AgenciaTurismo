@@ -24,7 +24,7 @@ class BrandController extends Controller
 
     // setando quantos items vou exibir por pagina
 
-    protected $totalpage = 4;
+    protected $totalpage = 20;
 
     public function __construct(Brand $brand)
     {
