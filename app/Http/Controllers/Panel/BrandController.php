@@ -83,7 +83,16 @@ class BrandController extends Controller
      */
     public function show($id)
     {
-        //
+        $brand = $this->brand->find($id);
+
+        if(!$brand) // se ele nao encontrar o id ele redirecionar para pagina anterior
+            return redirect()->back();
+
+            $title = "Detalhes da Marca: {$brand->name}";
+
+            return view ('panel.brands.show', compact('title', 'brand'));
+
+
     }
 
     /**
@@ -142,7 +151,21 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $brand = $this->brand->find($id);
+
+        if(!$brand) // se ele nao encontrar o id ele redirecionar para pagina anterior
+            return redirect()->back();
+
+        if($brand->delete())
+                            return redirect()
+                                            ->route('brands.index')
+                                            ->with('sucess', 'Deletado com sucesso');
+                            else
+
+                            return redirect()
+                                            ->back()
+                                            ->with('error', 'Falha ao Deletar');
+
     }
 
     public function search(Request $request)
@@ -155,6 +178,6 @@ class BrandController extends Controller
         $title = "Brands, filtros para: {$request->key_search}";
 
         return view('panel.brands.index', compact('title', 'brands','dataform'));
-        
+
     }
 }
