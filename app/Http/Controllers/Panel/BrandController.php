@@ -24,7 +24,7 @@ class BrandController extends Controller
 
     // setando quantos items vou exibir por pagina
 
-    protected $totalpage = 20;
+    protected $totalpage = 2; // quantos resultados a serem exibidos por pagina na paginacao
 
     public function __construct(Brand $brand)
     {
@@ -171,7 +171,7 @@ class BrandController extends Controller
     public function search(Request $request)
     {
 
-        $dataform = $request ->except('_token');
+        $dataform = $request ->except('_token'); // pegando todos os dados exceto o token
 
         $brands = $this->brand->search($request->key_search, $this->totalpage);
 

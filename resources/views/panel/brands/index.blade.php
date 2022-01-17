@@ -24,6 +24,17 @@
 
             {!! Form::close() !!}
 
+            @if (isset($dataform['key_search']))
+                <div class="alert alert-info">
+
+                    <p>Resultados para: <strong>{{ $dataform['key_search'] }}</strong></p>
+
+                </div>
+
+
+            @endif
+
+
         </div>
 
         {{--
@@ -33,7 +44,9 @@
 
                 --}}
         <div class = "messages">
-           @include('panel.includes.alerts')
+
+            @include('panel.includes.alerts')
+
         </div>
 
         <div class="class-btn-insert">
@@ -73,11 +86,11 @@
 
         @if (isset($dataform))
 
-        {{ $brands->appends($dataform)->links()}}
+        {!! $brands->appends($dataform)->links()!!}
 
         @else
 
-        {{$brands->links()}}
+        {!!$brands->links()!!}
 
         @endif
 
