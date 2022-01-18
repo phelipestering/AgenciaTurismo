@@ -15,6 +15,7 @@ class PlaneController extends Controller
      */
 
     private $plane;
+    private $totalPage = 20;
 
     public function __construct(Plane $plane)
     {
@@ -24,7 +25,11 @@ class PlaneController extends Controller
 
     public function index()
     {
-        //
+        $title = 'Listagem de Avioes';
+
+        $planes = $this->plane->paginate($this->totalPage);
+
+        return view ('panel.planes.index', compact('title', 'planes'));
     }
 
     /**

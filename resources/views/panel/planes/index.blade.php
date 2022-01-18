@@ -4,12 +4,12 @@
 @section('content')
 
     <div class="bred">
-        <a href="" class="bred">Home  ></a>
-        <a href="" class="bred">Brands</a>
+        <a href="" class="bred" > Home></a>
+        <a href="{{ route('planes.index') }}" class="bred">Avioes</a>
     </div>
 
     <div class="title-pg">
-        <h1 class="title-pg">Marcas de Aviao</h1>
+        <h1 class="title-pg">Lista de Avioes</h1>
     </div>
 
     <div class="content-din bg-white">
@@ -26,7 +26,9 @@
 
             @if (isset($dataform['key_search']))
                 <div class="alert alert-info">
-                    <a href="{{route('brands.index')}}"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+
+                    <a href="{{route('planes.index')}}"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+
                     <p>Resultados para: <strong>{{ $dataform['key_search'] }}</strong></p>
 
                 </div>
@@ -50,7 +52,7 @@
         </div>
 
         <div class="class-btn-insert">
-            <a href="{{ route('brands.create') }}" class="btn-insert">
+            <a href="{{ route('planes.create') }}" class="btn-insert">
                 <span class="glyphicon glyphicon-plus"></span>
                 Cadastrar
             </a>
@@ -59,6 +61,8 @@
         <table class="table table-striped">
             <tr>
                 <th>Nome</th>
+                <th>Marcas</th>
+                <th>Total de Passageiros</th>
 
                 <th width="150">Ações</th>
             </tr>
@@ -67,14 +71,20 @@
             {{-- LISTAGEM DE MARCAS --}}
 
 
-            @forelse ($brands as $brand )
+            @forelse ($planes as $plane )
 
                 <tr>
-                    <td>{{ $brand->name }}</td>
+                    <td>{{ $plane->name }}</td>
+                    <td>....</td>
+                    <td>{{ $plane->qty_passengers }}</td>
+                    <td>{{ $plane->name }}</td>
+                    <td>{{ $plane->name }}</td>
+
+
 
                     <td>
-                        <a href="{{ route('brands.edit', $brand->id) }}" class="edit">Edit</a>
-                        <a href="{{ route('brands.show', $brand->id) }}" class="delete">View</a>
+                        <a href="{{ route('planes.edit', $brand->id) }}" class="edit">Edit</a>
+                        <a href="{{ route('planes.show', $brand->id) }}" class="delete">View</a>
                     </td>
                 </tr>
             @empty
@@ -82,15 +92,16 @@
                     <td colspan="200">Nenhum Item Cadastrado</td>
                 </tr>
             @endforelse
+
         </table>
 
         @if(isset($dataform))
 
-            {!!$brands->appends($dataform)->links()!!}
+            {!!$planes->appends($dataform)->links()!!}
 
         @else
 
-            {!!$brands->links()!!}
+            {!!$planes->links()!!}
 
         @endif
 
