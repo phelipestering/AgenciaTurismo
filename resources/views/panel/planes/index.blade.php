@@ -80,8 +80,6 @@
                     <td>{{ $plane->name }}</td>
                     <td>{{ $plane->name }}</td>
 
-
-
                     <td>
                         <a href="{{ route('planes.edit', $brand->id) }}" class="edit">Edit</a>
                         <a href="{{ route('planes.show', $brand->id) }}" class="delete">View</a>

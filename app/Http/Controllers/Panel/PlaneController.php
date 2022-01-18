@@ -39,7 +39,9 @@ class PlaneController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Cadastrar Novo Aviao';
+
+        return view ('panel.planes.create', compact('title'));
     }
 
     /**
