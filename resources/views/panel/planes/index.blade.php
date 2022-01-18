@@ -4,7 +4,7 @@
 @section('content')
 
     <div class="bred">
-        <a href="" class="bred" > Home></a>
+        <a href="{{ route('dash.panel') }}" class="bred" > Home></a>
         <a href="{{ route('planes.index') }}" class="bred">Avioes</a>
     </div>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Plane;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,13 @@ class PlaneController extends Controller
     {
         $title = 'Cadastrar Novo Aviao';
 
-        return view ('panel.planes.create', compact('title'));
+        $brands = Brand::pluck('name', 'id'); // metodo que retorna o nome do campo da model brand
+
+        // https://laravel.com/docs/8.x/collections#method-pluck
+
+        $classes = $this->plane->classes();
+
+        return view ('panel.planes.create', compact('title', 'classes', 'brands'));
     }
 
     /**
