@@ -41,6 +41,16 @@
 				</a>
 			</li>
 
+            <li>
+				<a href= "{{ route('planes.index')}}">
+					<i class="fas fa-plane" aria-hidden="true"></i>
+					Avioes
+				</a>
+			</li>
+
+
+
+
 			<li>
 				{{-- <a href="?pag=forms">
 					<i class="fas fa-landmark" aria-hidden="true"></i>

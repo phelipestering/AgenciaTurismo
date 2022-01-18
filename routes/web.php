@@ -32,6 +32,7 @@ Route::group(['prefix' => 'panel', 'namespace' => 'panel'], function () {
 
     Route::resource('/brands', '\App\Http\Controllers\Panel\BrandController');
 
+    Route::resource('/planes', '\App\Http\Controllers\Panel\PlaneController');
 
     Route::get('/', [SiteController::class, 'panel'])->name('dash.panel');
 

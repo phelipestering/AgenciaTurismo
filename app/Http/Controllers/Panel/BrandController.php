@@ -171,7 +171,7 @@ class BrandController extends Controller
     public function search(Request $request)
     {
 
-        $dataform = $request ->except('_token'); // pegando todos os dados exceto o token
+        $dataform = $request->except('_token'); // pegando todos os dados exceto o token
 
         $brands = $this->brand->search($request->key_search, $this->totalpage);
 

@@ -84,13 +84,13 @@
             @endforelse
         </table>
 
-        @if (isset($dataform))
+        @if(isset($dataform))
 
-        {!! $brands->appends($dataform)->links()!!}
+            {!!$brands->appends($dataform)->links()!!}
 
         @else
 
-        {!!$brands->links()!!}
+            {!!$brands->links()!!}
 
         @endif
 
