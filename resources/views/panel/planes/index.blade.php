@@ -60,10 +60,9 @@
 
         <table class="table table-striped">
             <tr>
-                <th>Nome</th>
+                <th>Classes</th>
                 <th>Marcas</th>
                 <th>Total de Passageiros</th>
-
                 <th width="150">Ações</th>
             </tr>
 
@@ -74,15 +73,14 @@
             @forelse ($planes as $plane )
 
                 <tr>
-                    <td>{{ $plane->name }}</td>
-                    <td>....</td>
+                    <td>{{ $plane->classes($plane->class) }}</td>
+                    <td>{{ $plane->brandRelation->name}}</td>
                     <td>{{ $plane->qty_passengers }}</td>
-                    <td>{{ $plane->name }}</td>
-                    <td>{{ $plane->name }}</td>
+                    {{-- <td>{{ $plane->name }}</td> --}}
 
                     <td>
-                        <a href="{{ route('planes.edit', $brand->id) }}" class="edit">Edit</a>
-                        <a href="{{ route('planes.show', $brand->id) }}" class="delete">View</a>
+                        <a href="{{ route('planes.edit', $plane->id) }}" class="edit">Edit</a>
+                        <a href="{{ route('planes.show', $plane->id) }}" class="delete">View</a>
                     </td>
                 </tr>
             @empty
