@@ -60,6 +60,7 @@
 
         <table class="table table-striped">
             <tr>
+                <th>#ID</th>
                 <th>Classes</th>
                 <th>Marcas</th>
                 <th>Total de Passageiros</th>
@@ -73,6 +74,7 @@
             @forelse ($planes as $plane )
 
                 <tr>
+                    <td>{{ $plane->id}}</td>
                     <td>{{ $plane->classes($plane->class) }}</td>
                     <td>{{ $plane->brandRelation->name}}</td>
                     <td>{{ $plane->qty_passengers }}</td>

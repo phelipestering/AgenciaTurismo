@@ -100,7 +100,20 @@ class PlaneController extends Controller
      */
     public function edit($id)
     {
-        //
+        $plane = $this->plane->find($id);
+
+        if(!$plane)
+            return redirect()->back();
+
+        $brands = Brand::pluck('name', 'id'); // metodo que retorna o nome do campo da model brand
+
+        // https://laravel.com/docs/8.x/collections#method-pluck
+
+        $classes = $this->plane->classes();
+
+        $title = "Editando o Aviao: {$plane->id}";
+
+        return view('panel.planes.editPlaneView', compact('plane', 'title', 'brands', 'classes' ));
     }
 
     /**
@@ -112,7 +125,22 @@ class PlaneController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $plane = $this->plane->find($id);
+
+        if(!$plane)
+            return redirect()->back();
+
+        if($plane->update($request->all()))
+            return redirect()
+                            ->route('planes.index')
+                            ->with('sucess', 'Editado com Sucesso');
+            else
+
+            return redirect()
+                            ->back()
+                            ->with('error', 'Erro ao Editar')
+                            ->withInput();
+
     }
 
     /**
