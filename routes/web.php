@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Panel\BrandController;
+use App\Http\Controllers\Panel\PlaneController;
 use App\Http\Controllers\Site\SiteController;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
@@ -36,9 +37,13 @@ Route::group(['prefix' => 'panel', 'namespace' => 'panel'], function () {
 
     Route::get('/', [SiteController::class, 'panel'])->name('dash.panel');
 
-    // rota de busca
+    // rota de busca - brands
 
     Route::any('/brands/search', [BrandController::class, 'search'])->name('brands.search');
+
+    // rota de busca - planes
+
+    Route::any('/planes/search', [PlaneController::class, 'search'])->name('planes.search');
 });
 
 

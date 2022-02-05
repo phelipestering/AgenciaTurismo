@@ -13,6 +13,8 @@ class Plane extends Model
 
     protected $fillable = ['qty_passengers','class', 'brand_id'];
 
+
+
     public function classes($className = null)
     {
         $classes = [
@@ -34,4 +36,19 @@ class Plane extends Model
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
+
+    public function search($filter=null)
+    {
+        $results = $this
+                    ->where('id','LIKE', "%{$filter}%")
+                    ->orwhere('qty_passengers', "%{$filter}%")
+                    ->paginate();
+
+                return $results;
+
+    }
+
+    // "%{"%{$keySearch}%"}%"
+
+
 }

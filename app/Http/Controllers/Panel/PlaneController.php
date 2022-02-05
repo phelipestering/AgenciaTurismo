@@ -17,19 +17,27 @@ class PlaneController extends Controller
      */
 
     private $plane;
-    private $totalPage = 20;
+
+    // private $repository;
+
+    private $totalPage = 10;
 
     public function __construct(Plane $plane)
     {
         $this->plane = $plane;
+
+
     }
 
 
     public function index()
     {
+
+        $planes = $this->plane->latest()->paginate($this->totalPage);
+
         $title = 'Listagem de Avioes';
 
-        $planes = $this->plane->with('brandRelation')->paginate($this->totalPage);
+        // $planes = $this->plane->with('brandRelation')->paginate($this->totalPage);
 
         return view ('panel.planes.index', compact('title', 'planes'));
     }
@@ -153,5 +161,18 @@ class PlaneController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+
+        $filters = $request->all();
+
+        $planes = $this->plane->search($request->filter);
+
+        return view('panel.planes.index', [
+            'planes' => $planes,
+            'filters' => $filters,
+        ]);
     }
 }

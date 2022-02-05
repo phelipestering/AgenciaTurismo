@@ -16,28 +16,32 @@
 
         <div class="form-search">
 
-            {!! Form::open(['route' => 'brands.search', 'class' => 'form form-inline']) !!}
+        </div>
 
-            {!! Form::text('key_search', null, ['class'=>'form-control', 'placeholder'=>'Pesquisar']) !!}
+        <form action="{{ route('planes.search') }}" method="post" class="form form-inline">
 
-            <button class="btn btn-search">Pesquisar</button>
+            @csrf
 
-            {!! Form::close() !!}
+            <input type="text" name="filter" class="form-control" placeholder="Buscar Avioes">
+            <button type="submit" class="btn btn-info">Pesquisar</button>
 
-            @if (isset($dataform['key_search']))
+        </form>
+
+
+            {{-- @if (isset($dataform['key_search']))
                 <div class="alert alert-info">
 
                     <a href="{{route('planes.index')}}"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 
-                    <p>Resultados para: <strong>{{ $dataform['key_search'] }}</strong></p>
-
-                </div>
+                    <p>Resultados para: <strong>{{ $dataform['key_search'] }}</strong></p> --}}
 
 
-            @endif
 
 
-        </div>
+            {{-- @endif --}}
+
+
+
 
         {{--
             EXIBINDO A JANELA DE MENSAGEM DE ERRO E SUCESSO
@@ -93,15 +97,18 @@
 
         </table>
 
-        @if(isset($dataform))
+    <div class="card-footer">
+        @if(isset($filters))
 
-            {!!$planes->appends($dataform)->links()!!}
+            {!!$planes->appends($filters)->links()!!}
 
         @else
 
             {!!$planes->links()!!}
 
         @endif
+    </div>
+
 
 
     </div>
